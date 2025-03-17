@@ -1,0 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.bg-red-500 {
+    background-color: #ec5e5e;
+}
+
+.row {
+    margin: 0;
+}

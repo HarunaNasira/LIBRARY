@@ -10,6 +10,10 @@
   </div>
   <!-- container-scroller -->
   <script src="../assets/js/vendor.bundle.base.js"></script>
-
+  <script src="../assets/js/template.js"></script>
+  <script>
+      feather.replace();
+  </script>
+  
 </body>
 </html>

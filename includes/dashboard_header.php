@@ -14,18 +14,27 @@
   <link rel="stylesheet" href="../assets/css/feather.css">
   <link rel="stylesheet" href="../assets/css/vendor.bundle.base.css">
   
-  <link rel="stylesheet" href="../assets/css/dashboard.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/chart/c3.min.css">
+  <link rel="stylesheet" href="../assets/css/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="../assets/css/custom-datatable.css">
 
   <script src="https://unpkg.com/feather-icons"></script>
+  <link rel="shortcut icon" href="../assets/images/favicon.svg" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css">
 </head>
 
 <body>
   <div class="container-scroller">
-    <!-- partial:../../partials/_navbar.html -->
+    
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-        <a class="navbar-brand brand-logo text-black" href="#">Library System</a>
-        <a class="navbar-brand brand-logo-mini" href="#"><img src="#" alt="logo"/></a>
+        <a class="navbar-brand brand-logo" href="#">
+          <img src="../assets/images/logo_dark.svg" alt="logo"/>
+        </a>
+        <a class="navbar-brand brand-logo-mini" href="#">
+          <img src="../assets/images/favicon.svg" alt="logo"/>
+        </a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -34,7 +43,9 @@
         <ul class="navbar-nav w-100 d-flex justify-content-between">
           <li class="nav-item dropdown d-none d-lg-flex">
             <a class="nav-link dropdown-toggle nav-btn" id="actionDropdown" href="#">
-              <span class="btn">+ Add New Book</span>
+              <span class="btn"><i data-feather="search" style="width: 16px; margin-right: 4px;"></i> 
+                Search for a Book
+              </span>
             </a>
           </li>
 		  <li class="nav-item">

@@ -23,7 +23,7 @@
         </div>
         </li>
         <li class="nav-item"> 
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="dashboard.php">
                 <i data-feather="grid" class="sidenav-icon"></i>
                 <span class="menu-title text-black font-weight-semibold">Dashboard</span>
             </a>
@@ -35,8 +35,8 @@
             </a>
         <div class="collapse" id="books">
             <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="#">Add Books</a></li>
-            <li class="nav-item"> <a class="nav-link" href="#">View All</a></li>
+                <li class="nav-item"> <a class="nav-link" href="./booklist.php">Book List</a></li>
+                <li class="nav-item"> <a class="nav-link" href="./addbook.php">Add Books</a></li>
             </ul>
         </div>
         </li>
@@ -53,7 +53,13 @@
             </div>
         </li>
         <li class="nav-item"> 
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="./settings.php">
+                <i data-feather="settings" class="sidenav-icon"></i>
+                <span class="menu-title text-black font-weight-semibold">Settings</span>
+            </a>
+        </li>
+        <li class="nav-item"> 
+            <a class="nav-link" href="../index.php">
                 <i data-feather="power" class="sidenav-icon"></i>
                 <span class="menu-title text-black font-weight-semibold">Logout</span>
             </a>

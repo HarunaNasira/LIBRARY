@@ -11,6 +11,17 @@
   <!-- container-scroller -->
   <script src="../assets/js/vendor.bundle.base.js"></script>
   <script src="../assets/js/template.js"></script>
+  <script src="../assets/js/chart/d3.min.js"></script>
+  <script src="../assets/js/chart/c3.js"></script>
+  <script src="../assets/js/chart/chart.min.js"></script>
+  <script src="../assets/js/c3.js"></script>
+  <script src="../assets/js/chart.js"></script>
+
+  <!-- Booklist Table -->
+  <script src="../assets/js/dataTables.bootstrap4.js"></script>
+  <script src="../assets/js/jquery.dataTables.js"></script>
+  <script src="../assets/js/custom-data-table.js"></script>
+
   <script>
       feather.replace();
   </script>

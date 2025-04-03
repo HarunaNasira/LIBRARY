@@ -30714,3 +30714,20 @@ div.tagsinput span.tag a {
 .welcome-text {
   color: #8f5ff0;
 }
+
+.search-field {
+  background-color: #ffffff;
+  border-radius: 35px;
+}
+
+.search-field .form-control {
+  /* width: 80%; */
+  min-height: 100%;
+  margin-bottom: 0 !important;
+  padding: 16px !important;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  font-weight: 700;
+  color: black;
+}

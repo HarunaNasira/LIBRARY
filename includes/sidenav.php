@@ -1,8 +1,5 @@
-
 <?php
-
     // Display options based on user role
-
 ?>
 
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -36,7 +33,7 @@
         <div class="collapse" id="books">
             <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="./booklist.php">Book List</a></li>
-                <li class="nav-item"> <a class="nav-link" href="./addbook.php">Add Books</a></li>
+                <li class="nav-item"> <a class="nav-link" href="./addbook.php">Add Book</a></li>
             </ul>
         </div>
         </li>
@@ -47,8 +44,8 @@
             </a>
             <div class="collapse" id="users">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="#">Add Users</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="#">View All</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="add_user.php">Add Users</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="view_users.php">View All</a></li>
                 </ul>
             </div>
         </li>
@@ -59,7 +56,7 @@
             </a>
         </li>
         <li class="nav-item"> 
-            <a class="nav-link" href="../index.php">
+            <a class="nav-link" href="../authentication/logout.php">
                 <i data-feather="power" class="sidenav-icon"></i>
                 <span class="menu-title text-black font-weight-semibold">Logout</span>
             </a>

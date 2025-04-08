@@ -65,7 +65,7 @@
       
       
       <!-- SideNav -->
-      <?php include_once('../includes/sidenav.php'); ?>
+      <?php require('../includes/sidenav.php'); ?>
       
 	  <!-- main-panel start -->
       <div class="main-panel">

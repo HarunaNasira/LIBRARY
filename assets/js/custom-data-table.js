@@ -6,13 +6,13 @@
         [5, 10, 15, -1],
         [5, 10, 15, "All"]
       ],
-      "iDisplayLength": 10,
+      "iDisplayLength": 5,
       "language": {
-        search: "Search books...",
-        lengthMenu: "Show _MENU_ books per page",
-        info: "Showing _START_ to _END_ of _TOTAL_ books",
-        infoEmpty: "No books found",
-        infoFiltered: "(filtered from _MAX_ total books)"
+        search: "Search",
+        lengthMenu: "Show _MENU_ per page",
+        info: "Showing _START_ to _END_ of _TOTAL_ total entries",
+        infoEmpty: "No enties found",
+        infoFiltered: "(filtered from _MAX_ total entries)"
       },
       "order": [[0, 'asc']], // Sort by Book ID by default
       "columnDefs": [
@@ -37,11 +37,11 @@
     
     $('#book-listing').each(function() {
       var datatable = $(this);
-      // SEARCH - Add the placeholder for Search and Turn this into in-line form control
+      
       var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
-      search_input.attr('placeholder', 'Search books...');
+      search_input.attr('placeholder', 'Start typing ...');
       search_input.removeClass('form-control-sm');
-      // LENGTH - Inline-Form control
+      
       var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
       length_sel.removeClass('form-control-sm');
     });

@@ -1,13 +1,18 @@
 (function($) {
   'use strict';
   
+  // Check if donutChartData is defined by PHP, otherwise use default values
+  var donutChartData = window.donutChartData || [
+    ["Borrowed", 30],
+    ["Available", 70],
+    ["Pending", 15],
+    ["Overdue", 5]
+  ];
+  
   var c3DonutChart = c3.generate({
     bindto: '#c3-donut-chart',
     data: {
-      columns: [
-        ['data1', 30],
-        ['data2', 120],
-      ],
+      columns: donutChartData,
       type: 'donut',
       onclick: function(d, i) {
         console.log("onclick", d, i);
@@ -20,7 +25,7 @@
       }
     },
     color: {
-      pattern: ['rgba(88,216,163,1)', 'rgba(4,189,254,0.6)', 'rgba(237,28,36,0.6)']
+      pattern: ['rgba(54, 162, 235, 1)', 'rgba(75, 192, 192, 1)', 'rgba(255, 206, 86, 1)', 'rgba(255, 99, 132, 1)']
     },
     padding: {
       top: 0,
@@ -29,10 +34,12 @@
       left: 0,
     },
     donut: {
-      title: "100%"
+      title: "Book Status"
     }
   });
 
+  // Uncomment this if you want the original behavior with data1/data2
+  /*
   setTimeout(function() {
     c3DonutChart.load({
       columns: [
@@ -51,5 +58,6 @@
       ids: 'data2'
     });
   }, 2500);
+  */
 
 })(jQuery);

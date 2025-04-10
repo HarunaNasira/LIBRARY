@@ -1,11 +1,15 @@
 $(function() {
   
   'use strict';
+  
+  // Check if monthlyBorrowData is defined by PHP, otherwise use default data
+  var monthlyBorrowData = window.monthlyBorrowData || [10, 19, 3, 5, 2, 3, 7, 12, 8, 15, 9, 11];
+  
   var data = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     datasets: [{
       label: 'Books Borrowed',
-      data: [10, 19, 3, 5, 2, 3, 7, 12, 8, 15, 9, 11],
+      data: monthlyBorrowData,
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',

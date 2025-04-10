@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,40 +34,55 @@
               </div>
               <h4>Welcome back!</h4>
               <small class="text-muted">Happy to see you again!</small>
-              <form class="pt-3">
+              
+              <?php
+                // Display error
+                if (isset($_SESSION['error'])) {
+                  echo '<div class="alert alert-danger">' . $_SESSION['error'] . '</div>';
+                  unset($_SESSION['error']);
+                }
+                
+                // Display role change message
+                if (isset($_SESSION['role_change_message'])) {
+                  echo '<div class="alert alert-info">' . $_SESSION['role_change_message'] . '</div>';
+                  unset($_SESSION['role_change_message']);
+                }
+              ?>
+              
+              <form class="pt-3" action="./authentication/login.php" method="post">
                 <div class="form-group">
-                  <label for="exampleInputEmail">Username</label>
+                  <label for="username">Username</label>
                   <div class="input-group">
                     <div class="input-group-prepend bg-transparent">
                       <span class="input-group-text bg-transparent border-right-0">
                         <img src="./assets/images/icons/user.svg" width="15px">
                       </span>
                     </div>
-                    <input type="text" class="form-control form-control-lg border-left-0" id="exampleInputEmail" placeholder="Username">
+                    <input type="text" class="form-control form-control-lg border-left-0" id="username" name="username" placeholder="Username" required>
                   </div>
                 </div>
 
                 <!-- Password -->
                 <div class="form-group">
-                  <label for="exampleInputPassword">Password</label>
+                  <label for="password">Password</label>
                   <div class="input-group">
                     <div class="input-group-prepend bg-transparent">
                       <span class="input-group-text bg-transparent border-right-0">
                         <img src="./assets/images/icons/lock.svg" width="15px">
                       </span>
                     </div>
-                    <input type="password" class="form-control form-control-lg border-left-0" id="exampleInputPassword" placeholder="Password">                        
+                    <input type="password" class="form-control form-control-lg border-left-0" id="password" name="password" placeholder="Password" required>                        
                   </div>
                 </div>
 
                 <!-- Role -->
                 <div class="form-group">
-                  <label for="exampleInputPassword">Role</label>
+                  <label for="role">Role</label>
                   <div class="input-group">
                     <div class="col-sm-4">
                       <div class="form-radio">
                         <label class="form-check-label d-flex gap-3">
-                          <input type="radio" class="form-check-input" name="userRole" id="userRole" value="" checked>
+                          <input type="radio" class="form-check-input" name="role" id="userRole" value="user" checked>
                           <h6>User</h6>
                         </label>
                       </div>
@@ -72,7 +90,7 @@
                     <div class="col-sm-4">
                       <div class="form-radio">
                         <label class="form-check-label d-flex gap-3">
-                          <input type="radio" class="form-check-input" name="userRole" id="adminRole" value="">
+                          <input type="radio" class="form-check-input" name="role" id="adminRole" value="admin">
                           <h6 class="card-title">Admin</h6>
                         </label>
                       </div>
@@ -81,12 +99,12 @@
                 </div>
 
                 <div class="my-3">
-                  <a class="btn w-100 btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="./pages/dashboard.php">LOGIN</a>
+                  <button type="submit" class="btn w-100 btn-block btn-primary btn-lg font-weight-medium auth-form-btn">LOGIN</button>
                 </div>
-                <div class="my-2 d-flex justify-content-between align-items-center">
+                <!-- <div class="my-2 d-flex justify-content-between align-items-center">
                   <a href="#" class="auth-link text-black">Forgot password?</a>
                   <a href="#" class="auth-link text-black">Don't have an Account? Contact Admin</a>
-                </div>
+                </div> -->
                 
               </form>
             </div>

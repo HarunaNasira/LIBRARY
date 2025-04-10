@@ -40,21 +40,14 @@
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
           <i data-feather="menu"></i>
         </button> 
-        <ul class="navbar-nav w-100 d-flex justify-content-between">
-          <li class="nav-item dropdown d-none d-lg-flex">
-            <a class="nav-link dropdown-toggle nav-btn" id="actionDropdown" href="#">
-              <span class="btn"><i data-feather="search" style="width: 16px; margin-right: 4px;"></i> 
-                Search for a Book
-              </span>
-            </a>
+        <ul class="navbar-nav w-100 d-flex justify-content-end">
+          <li class="nav-item">
+            <div class="form-check form-switch d-flex align-items-center gap-5">
+              <label class="form-check-label" for="flexSwitchCheckDefault"> Set Email Reminder!</label>
+              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+            </div>
           </li>
-		  <li class="nav-item">
-			<div class="form-check form-switch d-flex align-items-center gap-5">
-				<label class="form-check-label" for="flexSwitchCheckDefault"> Set Email Reminder!</label>
-				<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
-			</div>
-          </li>
-		  
+        </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
           <span class="icon-menu"></span>
         </button>

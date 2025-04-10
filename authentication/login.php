@@ -32,8 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             // Redirect based on role
             if ($user['role'] == 'admin') {
-                // redirect("../admin/dashboard.php");
-                redirect("../pages/dashboard.php");
+                redirect("../admin/dashboard.php");
             } else {
                 redirect("../user/dashboard.php");
             }

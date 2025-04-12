@@ -1,11 +1,27 @@
 <?php
+    require_once '../config/db_connect.php';
+    
+    // Get user information from database
+    $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+    $user_info = null;
+    
+    if ($user_id) {
+        $query = "SELECT full_name, role, profile_pic FROM users WHERE user_id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user_info = $result->fetch_assoc();
+        $stmt->close();
+    }
+    
     // Display options based on user role
-    $user_role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+    $user_role = $user_info ? $user_info['role'] : '';
     $is_admin = ($user_role === 'admin');
     
     // Get user's profile picture
-    $profile_pic = isset($_SESSION['profile_pic']) && !empty($_SESSION['profile_pic']) 
-        ? '../assets/images/users/' . $_SESSION['profile_pic'] 
+    $profile_pic = $user_info && !empty($user_info['profile_pic']) 
+        ? '../assets/images/profiles/' . $user_info['profile_pic'] 
         : '../assets/images/RGU_logo.jpg';
 ?>
 
@@ -18,7 +34,7 @@
                 </div>
                 <div class="profile-name">
                     <p class="name">
-                        <?php echo isset($_SESSION['full_name']) ? $_SESSION['full_name'] : 'User'; ?>
+                        <?php echo $user_info ? $user_info['full_name'] : 'User'; ?>
                     </p>
                     <p class="designation">
                         <?php echo ucfirst($user_role); ?>

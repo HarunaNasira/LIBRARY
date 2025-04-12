@@ -90,7 +90,7 @@
         <?php endif; ?>
 
         <li class="nav-item"> 
-            <a class="nav-link" href="../pages/profile.php">
+            <a class="nav-link" href="./profile.php">
                 <i data-feather="user" class="sidenav-icon"></i>
                 <span class="menu-title text-black font-weight-semibold">Profile</span>
             </a>

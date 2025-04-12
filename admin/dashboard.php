@@ -5,7 +5,8 @@
 	// Check if user is logged in as an admin
 	if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 		$_SESSION['error'] = "You must be logged in as an admin to access this page";
-		redirect("../index.php");
+		header("Location: ../index.php");
+		exit;
 	}
 
 	// Get statistics
@@ -13,6 +14,36 @@
 	$lendedBooks = $conn->query("SELECT COUNT(*) as count FROM book_loans WHERE status = 'borrowed'")->fetch_assoc()['count'];
 	$availableBooks = $conn->query("SELECT SUM(available_quantity) as count FROM books")->fetch_assoc()['count'];
 	$totalUsers = $conn->query("SELECT COUNT(*) as count FROM users WHERE role = 'user'")->fetch_assoc()['count'];
+
+	// Ensure we have valid numbers (not null)
+	$lendedBooks = $lendedBooks ? $lendedBooks : 0;
+	$availableBooks = $availableBooks ? $availableBooks : 0;
+
+	// Get data for monthly lending chart
+	$monthlyLendingData = array_fill(0, 12, 0); // Initialize with zeros for all months
+	$monthlyQuery = "SELECT MONTH(borrow_date) as month, COUNT(*) as count 
+					FROM book_loans 
+					WHERE YEAR(borrow_date) = YEAR(CURRENT_DATE) 
+					GROUP BY MONTH(borrow_date)";
+	$monthlyResult = $conn->query($monthlyQuery);
+	
+	if ($monthlyResult) {
+		while ($row = $monthlyResult->fetch_assoc()) {
+			// Month index should be 0-11 for JavaScript arrays
+			$monthIndex = intval($row['month']) - 1;
+			$monthlyLendingData[$monthIndex] = intval($row['count']);
+		}
+	}
+
+	// Get data for donut chart
+	$pendingRequests = $conn->query("SELECT COUNT(*) as count FROM book_loans WHERE status = 'pending'")->fetch_assoc()['count'];
+	$overdueBooks = $conn->query("SELECT COUNT(*) as count FROM book_loans WHERE status = 'borrowed' AND due_date < CURDATE()")->fetch_assoc()['count'];
+	$returnedBooks = $conn->query("SELECT COUNT(*) as count FROM book_loans WHERE status = 'returned'")->fetch_assoc()['count'];
+	
+	// Ensure we have valid numbers (not null)
+	$pendingRequests = $pendingRequests ? $pendingRequests : 0;
+	$overdueBooks = $overdueBooks ? $overdueBooks : 0;
+	$returnedBooks = $returnedBooks ? $returnedBooks : 0;
 
 	// Get recent checkouts
 	$recentLoans = $conn->query("
@@ -23,8 +54,32 @@
 		ORDER BY l.borrow_date DESC LIMIT 5
 	");
 	
+	// Debug data
+	$debugData = [
+		'totalBooks' => $totalBooks,
+		'lendedBooks' => $lendedBooks,
+		'availableBooks' => $availableBooks,
+		'pendingRequests' => $pendingRequests,
+		'overdueBooks' => $overdueBooks,
+		'monthlyData' => $monthlyLendingData
+	];
+	
 	include('../includes/dashboard_header.php');
 ?>
+
+<!-- Add chart data as global JavaScript variables -->
+<script>
+// Pass data to chart.js file for the bar chart
+window.monthlyBorrowData = <?php echo json_encode(array_values($monthlyLendingData)); ?>;
+
+// Store donut chart data for direct use 
+const donutChartData = [
+	['Borrowed', <?php echo $lendedBooks; ?>],
+	['Available', <?php echo $availableBooks; ?>],
+	['Pending', <?php echo $pendingRequests; ?>],
+	['Overdue', <?php echo $overdueBooks; ?>]
+];
+</script>
 
 	<div class="content-wrapper">
 
@@ -107,8 +162,8 @@
 		<div class="col-lg-5 grid-margin stretch-card">
 			<div class="card">
 				<div class="card-body">
-					<h5 class="card-title">Book Availabiltiy</h5>
-					<small class="text-muted">Overview of Pie Chart</small>
+					<h5 class="card-title">Book Status Overview</h5>
+					<small class="text-muted">Distribution of book statuses</small>
 					<div id="c3-donut-chart"></div>
 				</div>
 			</div>
@@ -175,6 +230,23 @@
 								<?php
 									if ($recentLoans->num_rows > 0) {
 										while ($loan = $recentLoans->fetch_assoc()) {
+											$statusClass = '';
+											switch($loan['status']) {
+												case 'borrowed':
+													$statusClass = 'primary';
+													break;
+												case 'returned':
+													$statusClass = 'success';
+													break;
+												case 'pending':
+													$statusClass = 'warning';
+													break;
+												case 'overdue':
+													$statusClass = 'danger';
+													break;
+												default:
+													$statusClass = 'secondary';
+											}
 											echo '<tr>
 												<td>#' . $loan['loan_id'] . '</td>
 												<td>' . $loan['isbn'] . '</td>
@@ -183,7 +255,7 @@
 												<td>' . $loan['full_name'] . '</td>
 												<td>' . date('d M Y', strtotime($loan['borrow_date'])) . '</td>
 												<td>' . date('d M Y', strtotime($loan['due_date'])) . '</td>
-												<td><span class="badge badge-' . ($loan['status'] == 'borrowed' ? 'primary' : 'success') . '">' . ucfirst($loan['status']) . '</span></td>
+												<td><span class="badge badge-' . $statusClass . '">' . ucfirst($loan['status']) . '</span></td>
 											</tr>';
 										}
 									} else {
@@ -200,4 +272,24 @@
 
 	</div>
         
+<!-- Custom script for C3 donut chart -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize C3 donut chart directly
+    var c3DonutChart = c3.generate({
+        bindto: '#c3-donut-chart',
+        data: {
+            columns: donutChartData,
+            type: 'donut'
+        },
+        color: {
+            pattern: ['rgba(54, 162, 235, 1)', 'rgba(75, 192, 192, 1)', 'rgba(255, 206, 86, 1)', 'rgba(255, 99, 132, 1)']
+        },
+        donut: {
+            title: "Book Status"
+        }
+    });
+});
+</script>
+
 <?php include_once('../includes/dashboard_footer.php'); ?>

@@ -11,7 +11,7 @@
 
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
-        <li class="nav-item nav-profile">
+        <li class="nav-item nav-profile mt-4">
             <div class="nav-link">
                 <div class="profile-image">
                     <img src="<?php echo $profile_pic; ?>" class="rounded-circle" alt="profile" style="width: 80px; height: 80px; object-fit: cover;"/>

@@ -19,6 +19,7 @@
   <!-- Custom SStyles -->
   <link rel="stylesheet" href="./assets/css/main.css">
   <link rel="shortcut icon" href="./assets/images/favicon.svg" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css">
 
 </head>
 
@@ -72,6 +73,11 @@
                       </span>
                     </div>
                     <input type="password" class="form-control form-control-lg border-left-0" id="password" name="password" placeholder="Password" required>                        
+                    <div toggle="#password" class="input-group-prepend bg-transparent toggle-password">
+                      <span class="input-group-text bg-transparent border-right-0">
+                        <i class="mdi mdi-eye-off text-primary"></i>
+                      </span>
+                    </div>
                   </div>
                 </div>
 
@@ -120,6 +126,24 @@
   </div>
   <script src="./assets/js/template.js"></script>
   <script src="./assets/js/vendor.bundle.base.js"></script>
-
+  <script>
+    // Password visibility toggle
+    document.querySelectorAll('.toggle-password').forEach(function(toggle) {
+      toggle.addEventListener('click', function() {
+        const target = document.querySelector(this.getAttribute('toggle'));
+        const icon = this.querySelector('i');
+        
+        if (target.type === 'password') {
+          target.type = 'text';
+          icon.classList.remove('mdi-eye-off');
+          icon.classList.add('mdi-eye');
+        } else {
+          target.type = 'password';
+          icon.classList.remove('mdi-eye');
+          icon.classList.add('mdi-eye-off');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
